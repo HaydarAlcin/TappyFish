@@ -7,11 +7,21 @@ public class LeftMovement : MonoBehaviour
     public float speed;
     BoxCollider2D box;
     float groundWidht;
+    float obstacleWidht;
 
     void Start()
     {
-        box = GetComponent<BoxCollider2D>();
-        groundWidht = box.size.x;
+        
+        if (gameObject.CompareTag("Ground"))
+        {
+            box = GetComponent<BoxCollider2D>();
+            groundWidht = box.size.x;
+        }
+
+        else if (gameObject.CompareTag("Obstacle"))
+        {
+            obstacleWidht = GameObject.FindGameObjectWithTag("Column").GetComponent<BoxCollider2D>().size.x;
+        }
 
         
     }
@@ -21,11 +31,14 @@ public class LeftMovement : MonoBehaviour
     {
         transform.position = new Vector2(transform.position.x - speed *Time.deltaTime,transform.position.y);
 
-        if (transform.position.x<=-groundWidht)
+        if (gameObject.CompareTag("Ground"))
         {
-            transform.position = new Vector2(transform.position.x + groundWidht*2,transform.position.y);
-
-            
+            if (transform.position.x <= -groundWidht)
+            {
+                transform.position = new Vector2(transform.position.x + groundWidht * 2, transform.position.y);
+            }
         }
+
+       
     }
 }
