@@ -12,9 +12,6 @@ public class ObstacleSpawner : MonoBehaviour
     public float minY;
     float randomY;
 
-    public Sprite fishDied;
-    SpriteRenderer sp;
-
     void Start()
     {
         //InvokeRepeating("InstentiateObstacle()", 0,maxTime);
