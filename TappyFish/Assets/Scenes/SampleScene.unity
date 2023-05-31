@@ -534,6 +534,7 @@ MonoBehaviour:
   maxTime: 3.5
   maxY: 4.5
   minY: -2
+  fishDied: {fileID: 0}
 --- !u!4 &586775998
 Transform:
   m_ObjectHideFlags: 0
@@ -1107,7 +1108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 9
+  gameManager: {fileID: 157324946}
   score: {fileID: 1635726066}
+  fishDied: {fileID: 1244696958, guid: 02623db9e1ea1e0498347e48e8f1c144, type: 3}
 --- !u!95 &1867624995
 Animator:
   serializedVersion: 5
