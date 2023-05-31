@@ -11,7 +11,10 @@ public class ObstacleSpawner : MonoBehaviour
     public float maxY;
     public float minY;
     float randomY;
-    
+
+    public Sprite fishDied;
+    SpriteRenderer sp;
+
     void Start()
     {
         //InvokeRepeating("InstentiateObstacle()", 0,maxTime);
@@ -20,12 +23,15 @@ public class ObstacleSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= maxTime)
+        if (GameManager.gameOver==false)
         {
-            InstentiateObstacle();
-            timer = 0;
+            timer += Time.deltaTime;
+
+            if (timer >= maxTime)
+            {
+                InstentiateObstacle();
+                timer = 0;
+            }
         }
     }
 
