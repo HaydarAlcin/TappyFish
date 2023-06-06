@@ -15,6 +15,7 @@ public class Fish : MonoBehaviour
     int minAngle = -60;
 
     bool touchedGround;
+    bool gameStart;
 
     public GameManager gameManager;
     public Score score;
@@ -23,13 +24,15 @@ public class Fish : MonoBehaviour
     SpriteRenderer sp;
     Animator anim;
 
-    
+    [SerializeField] AudioSource swim, hit, point;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        Time.timeScale = 0f;
     }
 
     
@@ -47,6 +50,13 @@ public class Fish : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && GameManager.gameOver==false)
         {
+            if (gameStart==false)
+            {
+                Time.timeScale = 1f;
+                gameStart = true;
+                gameManager.GameStart();
+            }
+            swim.Play();
             _rb.velocity = Vector2.zero;
             _rb.velocity = new Vector2(_rb.velocity.x, speed);
         }
@@ -82,11 +92,13 @@ public class Fish : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             score.Scored();
+            point.Play();
         }
 
-        else if (collision.CompareTag("Column"))
+        else if (collision.CompareTag("Column") && GameManager.gameOver==false)
         {
-            //game oveer
+            gameManager.GameOver();
+            FishDieEffect();
         }
     }
 
@@ -99,12 +111,17 @@ public class Fish : MonoBehaviour
             {
                 gameManager.GameOver();
                 GameOver();
+                FishDieEffect();
             }
 
             
         }
     }
 
+    void FishDieEffect()
+    {
+        hit.Play();
+    }
     void GameOver()
     {
         touchedGround = true;
@@ -112,4 +129,6 @@ public class Fish : MonoBehaviour
         anim.enabled = false;
         transform.rotation = Quaternion.Euler(0,0,-90);
     }
+
+    
 }

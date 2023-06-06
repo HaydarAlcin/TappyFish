@@ -7,9 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public static Vector2 bottomLeft;
 
-    public GameObject gameOverPanel;
+    public GameObject gameOverPanel, gameStartPanel;
 
     public static bool gameOver;
+    public static int gameScore;
+    bool gameStart;
+
+
+    public GameObject score;
     void Awake()
     {
         bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
@@ -21,20 +26,24 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void GameOver()
     {
         gameOver = true;
+        gameScore = score.GetComponent<Score>().GetScore();
         gameOverPanel.SetActive(true);
+        score.SetActive(false);
     }
 
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
+    public void GameStart()
+    {
+        gameStartPanel.SetActive(false);
     }
 }
